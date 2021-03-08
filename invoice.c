@@ -87,26 +87,25 @@ void purchase()
        printf("\npress 0 to stop purchasing ortherwise press 21..\n");
        scanf("%d",&i); 
   }
-  printf("Enter Customer id,Name,mobilenumber,time,date\n");
+  printf("Enter Customer id,Name,mobilenumber,time,date[yy/m/d]\n");
   scanf("%d%s%s%s%s",&b[c].cid,b[c].cname,b[c].phonenum,b[c].time,b[c].date);
   if((strlen(b[c].phonenum)>10 || strlen(b[c].phonenum)<10))
     printf("Inavlid mobile number");
   else
-   {  //printf("\nS.no\titem_id\t\tproduct\t\tcost\t\tquantity \n");
+   {
       printf("\nS_no\titem_id\tquantity\tcost\tproduct\n"); 
       for(j=0;b[i].p[j].purchased!=0;j++)
-        //printf("%d  \t%2d\t%20s   \t%10d\t%10d\n",j+1,b[c].p[j].purchased,product[(b[c].p[j].purchased)-1],cost[(b[c].p[j].purchased)-1],b[c].p[j].quantity);
+       
       printf("%d\t%d\t%d\t\t%d\t%s\n",j+1,b[c].p[j].purchased,b[c].p[j].quantity,cost[(b[c].p[j].purchased)-1],product[(b[c].p[j].purchased)-1]);
       printf("\n                                           Total=%d\n",b[c].total);
    
       printf("Bill Generating....\n");
-      //printf("\nCustomer_id\t\tName\t\tmobilenumber\t\ttime\t\tdate\n");
+  
       printf("\nCustomer_id\tDate\t\ttime\tMobileNumber\tName\n");
   
-      //printf("%2d\t\t%10s\t\t%10s\t%10s\t%10s\n",b[c].cid,b[c].cname,b[c].phonenum,b[c].time,b[c].date);
+      
       printf("%d\t\t%s\t%s\t%s\t%s\n",b[c].cid,b[c].date,b[c].time,b[c].phonenum,b[c].cname);
-      //printf("\nS.no\titem_id\t\tproduct\t\t\tcost\t\tquantity \n");
-      //printf("\nS.no\titem_id\tquantity\tcost\tproduct\n");
+    
       printf("\nS_no\titem_id\tquantity\tcost\tproduct\n");  
       for(j=0;b[c].p[j].purchased!=0;j++)
 	{
@@ -174,7 +173,7 @@ void returning()
   
   printf("enter purchased date formate: yy/m/d\n");
   scanf("%s",purchased_date);
-  printf("now: %d-%02d-%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday); 
+  printf("now: %d/%02d/%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday); 
   for(i=0;i<4;i++)
   {
         num+=(purchased_date[i]-48)*r;
