@@ -21,112 +21,111 @@ struct polynomial
 struct polynomial p[100];
 
 int a=0,b=0,zz=0;
+int count=1,k=0,l=0,sum=0,c=1,z=0,temp=1,m=0,t=1,cc=0;
+char str1[100],str2[100];
+int str1_len,str2_len;
 
-void main()
+void value_assigning_process(char str1[100])
 {
-    int count=1,k=0,l=0,sum=0,c=1,z=0,temp=1,m=0,t=1,cc=0;
-    char str1[100],str2[100];
-    int str1_len,str2_len;
-    for(int i=0;i<2;i++)
+    str1_len=strlen(str1);
+    for(int i=0;i<str1_len;i++)
     {
-        printf("Enter the Polynomial %d : ",i+1);
-        gets(str1);
-        str1_len=strlen(str1);
-        for(int i=0;i<str1_len;i++)
+        if((str1[i]=='+' || str1[i]=='-' ) && (str1[i-1]!='^'))
         {
-            if((str1[i]=='+' || str1[i]=='-' ) && (str1[i-1]!='^'))
-            {
-                count++;
-            }
+            count++;
         }
-        p[k].no_terms=count;
-        for(int i=0;i<=str1_len;i++)
+    }
+    p[k].no_terms=count;
+    for(int i=0;i<=str1_len;i++)
+    {
+        if(i==0 && str1[i]=='-')
         {
-            if(i==0 && str1[i]=='-')
+            i++;
+        }
+        if((str1[i]=='+' || str1[i]=='-' || i==str1_len) && (str1[i-1]!='^'))
+        {
+            for(int j=z;j<i;j++)
             {
-                i++;
-            }
-            if((str1[i]=='+' || str1[i]=='-' || i==str1_len) && (str1[i-1]!='^'))
-            {
-                for(int j=z;j<i;j++)
-                {
-                    if(str1[z]=='-')
-                    {
-                        temp=-1;
-                        j++;
-                    }
-                    while(str1[j]>=48 && str1[j]<=58)
-                    {
-                        sum=(sum*c)+(str1[j]-'0');
-                        if(c==1)
-                        {
-                            c=10;
-                        }
-                        j++;
-                    }
-                    p[k].e[l].coef=sum*temp;
-                    temp=1;
-                    sum=0;
-                    c=1;
-                    while(j<i)
-                    {
-                        if(str1[j]>=97 && str1[j]<=122)
-                        {
-                            p[k].e[l].v[m].variable_name=str1[j];
-                            cc++;
-                            j++;
-                            if(str1[j]==94)
-                            {
-                                j++;
-                                if(str1[j]=='-')
-                                {
-                                    t=-1;
-                                    j++;
-                                }
-                                while(str1[j]>=48 && str1[j]<=58)
-                                {
-                                    sum=(sum*c)+(str1[j]-'0');
-                                    if(c==1)
-                                    {
-                                        c=10;
-                                    }
-                                    j++;
-                                }
-                                p[k].e[l].v[m].power_value=sum*t;
-                                sum=0;
-                                c=1;
-                                t=1;
-                                m++;
-
-                            }
-                            else
-                            {
-                                p[k].e[l].v[m].power_value=t;
-                                m++;
-                            }
-                        }
-                        else{
-                            j++;
-                        }
-                    }
-                    p[k].e[l].no_variables=cc;
-                    cc=0;
-                }
-                z=i;
                 if(str1[z]=='-')
                 {
                     temp=-1;
+                    j++;
                 }
-                z++;
-                l++;
-                m=0;
+                while(str1[j]>=48 && str1[j]<=58)
+                {
+                    sum=(sum*c)+(str1[j]-'0');
+                    if(c==1)
+                    {
+                        c=10;
+                    }
+                    j++;
+                }
+                p[k].e[l].coef=sum*temp;
+                temp=1;
+                sum=0;
+                c=1;
+                while(j<i)
+                {
+                    if(str1[j]>=97 && str1[j]<=122)
+                    {
+                        p[k].e[l].v[m].variable_name=str1[j];
+                        cc++;
+                        j++;
+                        if(str1[j]==94)
+                        {
+                            j++;
+                            if(str1[j]=='-')
+                            {
+                                t=-1;
+                                j++;
+                            }
+                            while(str1[j]>=48 && str1[j]<=58)
+                            {
+                                sum=(sum*c)+(str1[j]-'0');
+                                if(c==1)
+                                {
+                                    c=10;
+                                }
+                                j++;
+                            }
+                            p[k].e[l].v[m].power_value=sum*t;
+                            sum=0;
+                            c=1;
+                            t=1;
+                            m++;
+                        }
+                        else
+                        {
+                            p[k].e[l].v[m].power_value=t;
+                            m++;
+                        }
+                    }
+                    else
+                    {
+                        j++;
+                    }
+                }
+                p[k].e[l].no_variables=cc;
+                cc=0;
             }
+            z=i;
+            if(str1[z]=='-')
+            {
+                temp=-1;
+            }
+            z++;
+            l++;
+            m=0;
         }
-        k++;
-        l=0;
-        count=1;
-        z=0;
     }
+    k++;
+    l=0;
+    count=1;
+    z=0;
+}
+
+void multiplication_process()
+{
     p[2].no_terms=((p[0].no_terms)*(p[1].no_terms));
     for(int i=0;i<p[0].no_terms;i++)
     {
@@ -235,8 +234,10 @@ void main()
             b=0;
         }
     }
+}
 
-
+void addition_process()
+{
     int flag=0,a=0,b=0;
     count=0;
     for(int i=0;i<p[2].no_terms-1;i++)
@@ -284,8 +285,20 @@ void main()
             }
         }
     }
+}
+
+void main()
+{
+    for(int i=0;i<2;i++)
+    {
+        printf("Enter the Polynomial %d : ",i+1);
+        gets(str1);
+        value_assigning_process(str1);
+    }
+    multiplication_process();
+    Addition_process();
     printf("\n RESULT : ");
-  for(int i=0;i<p[2].no_terms;i++)
+    for(int i=0;i<p[2].no_terms;i++)
     {
         if((p[2].e[i].coef)!=0)
         {
