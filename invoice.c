@@ -35,8 +35,7 @@ const int monthDays[12]
        31, 31, 30, 31, 30, 31 };
 int main()
 {
-  //printf("123456789123456789\n");
-  //printf("karthik\n");
+ 
   int i,option,j;
   for(i=0;i<100;i++)
   {
@@ -130,9 +129,9 @@ void checklist()
   {
       if((id==b[i].cid) && (strcmp(date1,b[i].date)==0)&&(strcmp(time1,b[i].time)==0))
       {
-         //printf("\nCustomer id\t\tName\tmobile_number\ttime\tdate\n");
+      
 	 printf("\nCustomer_id\t\tDate\ttime\tMobileNumber\tName\n");
-         //printf("%2d\t\t%10s\t\t%10s\t\t%10s\t%10s\n",b[i].cid,b[i].cname,b[i].phonenum,b[i].time,b[i].date);
+        
 	 printf("%d\t\t%s\t%s\t%s\t%s\n",b[i].cid,b[i].date,b[i].time,b[i].phonenum,b[i].cname);
          printf("\nS_no\titem_id\tquantity\tcost\tproduct\n");
         for(j=0;b[i].p[j].purchased!=0;j++)
@@ -148,11 +147,11 @@ void checklist()
 void display()
 {
      int i,j;
-     //printf("\nCustomer_id\tName\tmobilenumber\ttime\tdate\n");
+    
      printf("\nCustomer_id\tDate\t\ttime\tMobileNumber\tName\n");
      for(i=0;i<c;i++)
       { 
-        //printf("%2d\t\t\t%10s\t\t%10s\t\t%10s\t\t%10s\n",b[i].cid,b[i].cname,b[i].phonenum,b[i].time,b[i].date);
+      
         printf("%d\t\t%s\t%s\t%s\t%s\n",b[i].cid,b[i].date,b[i].time,b[i].phonenum,b[i].cname);
         printf("\nS_no\titem_id\tquantity\tcost\tproduct\n");
         for(j=0;b[i].p[j].purchased!=0;j++)
@@ -184,19 +183,19 @@ void returning()
   
   dt1.y=num;
   num=0;
-   printf("%d\n",dt1.y);
+  
   num+=(purchased_date[5]-48)*10;
- // printf("%d\n",num);
+
   num+=(purchased_date[6]-48)*1;
   dt1.m=num;
-  //printf("%d\n",dt1.m);
+ 
   num=0;
   num+=(purchased_date[8]-48)*10;
-  //printf("%d\n",num);
+
   num+=(purchased_date[9]-48)*1;
-  //printf("%d\n",num);
+ 
   dt1.d=num;
-  printf("%d\n",dt1.d);
+ 
   dt2.y=tm.tm_year + 1900;
   dt2.m=tm.tm_mon + 1;
   dt2.d=tm.tm_mday;
