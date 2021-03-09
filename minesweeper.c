@@ -90,6 +90,7 @@ void printbox(int n)
 }
 void printmatrix(int flag,int n,char matrix[][n])
 {
+    system("cls");
     printf("\t\t\t\t\tMINE SWEEPER GAME - PLEASE ENTER THE POSITION\n");
     int row,col,i;
     printbox(n);
