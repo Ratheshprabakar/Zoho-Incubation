@@ -163,7 +163,6 @@ void main()
                         print_fun();
                         check_fun();
                         i=0;j=-1;
-                        printf("hai");
                     }
                     else if(i+1<=3 && matrix[i+1][j]==choice)
                     {
