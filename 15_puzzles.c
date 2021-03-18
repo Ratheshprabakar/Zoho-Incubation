@@ -21,7 +21,7 @@ void check_fun()
                 exit(0);
                 }
             }
-            else if()
+            else
             {
                 flg=0;
                 break;
