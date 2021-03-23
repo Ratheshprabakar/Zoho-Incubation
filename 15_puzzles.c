@@ -1,64 +1,81 @@
 #include<stdio.h>
 #include<stdlib.h>
+void create_board(int *board_matrix_copy);
 void printbox();
-int print_fun();
-int matrix[4][4];
-void check_fun();
-void check_fun()
+void puzzle_arrangement(int *board_matrix_copy);
+int check_fun(int *board_matrix_copy);
+
+//function to create matrix
+void create_board(int *board_matrix_copy)
 {
-    int k=1,count=0,flg=1;;
-    for(int i=0;i<4;i++)
-    {
-        for(int j=0;j<4;j++)
-        {
-            if(matrix[i][j]==k)
-            {
-                count++;
-                k++;
-                if(count==15)
-                {
-                printf("\nCongratulation.....!!!!");
-                exit(0);
-                }
-            }
-            else
-            {
-                flg=0;
-                break;
-            }
-        }
-    }
+	int row,col,i,check_array_copy[100],check_arr_len=0;
+	while(1)
+	{
+		int init=0;
+		int random_num=rand()%16;
+		while(init<check_arr_len)
+		{
+			if(check_array_copy[init]==random_num)
+			{
+				if(random_num==15)
+				{
+					random_num=-1;
+				}
+				random_num++;
+				init=-1;
+			}
+			init++;
+		}
+		check_array_copy[check_arr_len]=random_num;
+		check_arr_len+=1;
+		if(check_arr_len==16)
+		{
+			break;
+		}	
+	}
+	for(row=0;row<4;row++)
+	{
+		for(col=0;col<4;col++)
+		{
+			check_arr_len-=1;
+			*((board_matrix_copy+row*4)+col)=check_array_copy[check_arr_len];	
+		}
+	}
 }
+
 void printbox()
 {
-	for(int row=0;row<20;row++)
+	int row;
+	for(row=0;row<20;row++)
 	{
 		printf("-");
 	}
 	printf("-\n");
 }
 
-int print_fun()
+//Function to print matrix
+int print_fun(int *board_matrix_copy)
 {
+	int row,col;
     system("cls");
     printbox();
-    for(int i=0;i<4;i++)
+    for(row=0;row<4;row++)
     {
         printf("|");
-        for(int j=0;j<4;j++)
+        for(col=0;col<4;col++)
         {
-            if(matrix[i][j]==0)
+            if(*((board_matrix_copy+row*4)+col)==0)
             {
                 printf("    |");
             }
-            else if(matrix[i][j]<10)
+            else if(*((board_matrix_copy+row*4)+col)<10)
             {
                 printf(" 0");
-                printf("%d |",matrix[i][j]);
+                printf("%d |",*((board_matrix_copy+row*4)+col));
             }
             else
             {
-                printf(" %d |",matrix[i][j]);
+                printf(" %d |",*((board_matrix_copy+row*4)+col));
             }
 
         }
@@ -68,122 +85,99 @@ int print_fun()
     return 0;
 }
 
-void main()
+//Function to move the tiles
+void puzzle_arrangement(int *board_matrix_copy)
 {
-    int check_arr[100],count=0,k,array_len=0,l=0,flag=0;
-    while(count<16)
-    {
-        k=rand()%16;
-        while(l<=array_len)
-        {
-            if(check_arr[l]==k)
-            {
-                flag=1;
-                break;
-            }
-            l++;
-        }
-        if(flag==0)
-        {
-            check_arr[array_len]=k;
-            array_len++;
-            count++;
-        }
-        flag=0;
-        l=0;
-    }
-    for(int i=0;i<4;i++)
-    {
-        for(int j=0;j<4;j++)
-        {
-            matrix[i][j]=check_arr[array_len-1];
-            array_len-=1;
-        }
-    }
-
-    printbox();
-    for(int i=0;i<4;i++)
-    {
-        printf("|");
-        for(int j=0;j<4;j++)
-        {
-            if(matrix[i][j]==0)
-            {
-                printf("    |");
-            }
-            else if(matrix[i][j]<10)
-            {
-                printf(" 0");
-                printf("%d |",matrix[i][j]);
-            }
-            else
-            {
-                printf(" %d |",matrix[i][j]);
-            }
-
-        }
-        printf("\n");
-        printbox();
-    }
-    int choice,temp;
+	int choice,temp,row,col;
     while(1)
     {
-        print_fun();
-        for(int i=0;i<4;i++)
+        print_fun(board_matrix_copy);
+		for(row=0;row<4;row++)
         {
-            for(int j=0;j<4;j++)
+            for(col=0;col<4;col++)
             {
-                if(matrix[i][j]==0)
+                if(*((board_matrix_copy+row*4)+col)==0)
                 {
+                	 if(row==3 && col==3)
+                    {
+                       	check_fun(board_matrix_copy);
+					}
                     printf("Enter the element : ");
                     scanf("%d",&choice);
-                    if(j-1>=0 && matrix[i][j-1]==choice)
+                    if(col-1>=0 && *((board_matrix_copy+row*4)+(col-1))==choice)
                     {
-                        temp=matrix[i][j];
-                        matrix[i][j]=matrix[i][j-1];
-                        matrix[i][j-1]=temp;
-                        print_fun();
-                        check_fun();
-                        i=0;j=-1;
+                        temp=*((board_matrix_copy+row*4)+col);
+                        *((board_matrix_copy+row*4)+col)=*((board_matrix_copy+row*4)+col-1);
+                        *((board_matrix_copy+row*4)+col-1)=temp;
+                        print_fun(&(*board_matrix_copy));
+                        row=0;col=-1;
                     }
-                    else if(j+1<=3 && matrix[i][j+1]==choice)
+                    else if(col+1<=3 && *((board_matrix_copy+row*4)+col+1)==choice)
                     {
-                        temp=matrix[i][j];
-                        matrix[i][j]=matrix[i][j+1];
-                        matrix[i][j+1]=temp;
-                        print_fun();
-                        check_fun();
-                        i=0;j=-1;
+                        temp=*((board_matrix_copy+row*4)+col);
+                        *((board_matrix_copy+row*4)+col)=*((board_matrix_copy+row*4)+col+1);
+                        *((board_matrix_copy+row*4)+col+1)=temp;
+                        print_fun(&(*board_matrix_copy));
+                        row=0;col=-1;
                     }
-                    else if(i-1>=0 && matrix[i-1][j]==choice)
+                    else if(row-1>=0 && *((board_matrix_copy+(row-1)*4)+col)==choice)
                     {
-                        temp=matrix[i][j];
-                        matrix[i][j]=matrix[i-1][j];
-                        matrix[i-1][j]=temp;
-                        print_fun();
-                        check_fun();
-                        i=0;j=-1;
+                        temp=*((board_matrix_copy+row*4)+col);
+                        *((board_matrix_copy+row*4)+col)=*((board_matrix_copy+(row-1)*4)+col);
+                        *((board_matrix_copy+(row-1)*4)+col)=temp;
+                        print_fun(&(*board_matrix_copy));
+                        row=0;col=-1;
                     }
-                    else if(i+1<=3 && matrix[i+1][j]==choice)
+                    else if(row+1<=3 && *((board_matrix_copy+(row+1)*4)+col)==choice)
                     {
-                        temp=matrix[i][j];
-                        matrix[i][j]=matrix[i+1][j];
-                        matrix[i+1][j]=temp;
-                        print_fun();
-                        check_fun();
-                        i=0;j=-1;
+                        temp=*((board_matrix_copy+row*4)+col);
+                        *((board_matrix_copy+row*4)+col)=*((board_matrix_copy+(row+1)*4)+col);
+                        *((board_matrix_copy+(row+1)*4)+col)=temp;
+                        print_fun(&(*board_matrix_copy));
+                        row=0;col=-1;
                     }
                     else
                     {
-                        printf("\nIncorrect choice...please try again\n");
-                        i=0;j=0;
+                        printf("\nUnable to move : \n");
+                        row=0;col=0;
                     }
                 }
-
+			
             }
         }
-        break;
     }
 }
 
+// Puzzle Validation
+int check_fun(int *board_matrix_copy)
+{
+    int value=1,count=0,row,col;
+    for(row=0;row<4;row++)
+    {
+        for(col=0;col<4;col++)
+        {
+            if(*((board_matrix_copy+row*4)+col)==value)
+            {
+                count++;
+                value++;
+                if(count==15)
+                {
+                printf("\nCongratulation.....!!!!");
+                exit(0);
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
+}
 
+void main()
+{
+	int row,col;
+	int board_matrix[4][4];
+	create_board(&board_matrix);
+	print_fun(&board_matrix);
+	puzzle_arrangement(&board_matrix);
