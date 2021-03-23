@@ -181,3 +181,4 @@ void main()
 	create_board(&board_matrix);
 	print_fun(&board_matrix);
 	puzzle_arrangement(&board_matrix);
+}
