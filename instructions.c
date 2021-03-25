@@ -53,7 +53,6 @@ int process(char *ins,int k)
 		else
 			value=input_instruction[second_space+1]-'0';	
 		value_array[(input_var-'0')%65]=value;
-		printf("The Value for %c is setted to %d",input_var,value_array[(input_var-'0')%65]);
 			
 	}
 	//PRINT
