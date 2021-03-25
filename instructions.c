@@ -45,14 +45,19 @@ int process(char *ins,int k)
 			int init=second_space+1,c=10;
 			while(init<strlen(input_instruction))
 			{
-				printf("%c",input_instruction[init]);
+				//printf("%c",input_instruction[init]);
 				value=(value*c)+(input_instruction[init]-'0');
 				init++;
 			}
 		}
 		else
-			value=input_instruction[second_space+1]-'0';	
+		{
+		
+			value=input_instruction[second_space+1]-'0';
+		}
 		value_array[(input_var-'0')%65]=value;
+		printf("%d",value_array[(input_var-'0')%65]);
+
 			
 	}
 	//PRINT
@@ -85,13 +90,19 @@ int process(char *ins,int k)
 		}
 		else if ((first_var>='A' && first_var<='Z') && (second_var>='0' && second_var<='9'))
 		{
-			if(strlen(input_instruction)-second_space==3)
+			if(strlen(input_instruction)>7)
 			{
-				value=((input_instruction[second_space+1]-'0')*10)+(input_instruction[second_space+2]-'0');
+				int init=second_space+1,c=10;
+				while(init<strlen(input_instruction))
+				{
+					//printf("%c",input_instruction[init]);
+					value=(value*c)+(input_instruction[init]-'0');
+					init++;
+				}
 			}
 			else
 			{
-				value=input_instruction[second_space+1]-'0';	
+				value=input_instruction[second_space+1]-'0';
 			}
 			if(value_array[(first_var-'0')%65]!=0)
 			{
@@ -128,13 +139,19 @@ int process(char *ins,int k)
 		}
 		else if ((first_var>='A' && first_var<='Z') && (second_var>='0' && second_var<='9'))
 		{
-			if(strlen(input_instruction)-second_space==3)
+			if(strlen(input_instruction)>7)
 			{
-				value=((input_instruction[second_space+1]-'0')*10)-(input_instruction[second_space+2]-'0');
+				int init=second_space+1,c=10;
+				while(init<strlen(input_instruction))
+				{
+					//printf("%c",input_instruction[init]);
+					value=(value*c)+(input_instruction[init]-'0');
+					init++;
+				}
 			}
 			else
 			{
-				value=input_instruction[second_space+1]-'0';	
+				value=input_instruction[second_space+1]-'0';
 			}
 			if(value_array[(first_var-'0')%65]!=0)
 			{
@@ -172,13 +189,19 @@ int process(char *ins,int k)
 		}
 		else if ((first_var>='A' && first_var<='Z') && (second_var>='0' && second_var<='9'))
 		{
-			if(strlen(input_instruction)-second_space==3)
+			if(strlen(input_instruction)>7)
 			{
-				value=((input_instruction[second_space+1]-'0')*10)*(input_instruction[second_space+2]-'0');
+				int init=second_space+1,c=10;
+				while(init<strlen(input_instruction))
+				{
+					//printf("%c",input_instruction[init]);
+					value=(value*c)+(input_instruction[init]-'0');
+					init++;
+				}
 			}
 			else
 			{
-				value=input_instruction[second_space+1]-'0';	
+				value=input_instruction[second_space+1]-'0';
 			}
 			if(value_array[(first_var-'0')%65]!=0)
 			{
@@ -201,6 +224,3 @@ int process(char *ins,int k)
 		printf("INVALID INSTRUCTION");	
 	}
 }
-
-
-
