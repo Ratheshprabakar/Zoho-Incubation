@@ -40,8 +40,16 @@ int process(char *ins,int k)
 	{
 		int second_space=input_split(&input_instruction,k);
 		char input_var=ins[0];
-		if(strlen(input_instruction)-second_space==3)
-			value=((input_instruction[second_space+1]-'0')*10)+(input_instruction[second_space+2]-'0');
+		if(strlen(input_instruction)>7)
+		{
+			int init=second_space+1,c=10;
+			while(init<strlen(input_instruction))
+			{
+				printf("%c",input_instruction[init]);
+				value=(value*c)+(input_instruction[init]-'0');
+				init++;
+			}
+		}
 		else
 			value=input_instruction[second_space+1]-'0';	
 		value_array[(input_var-'0')%65]=value;
