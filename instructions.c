@@ -33,42 +33,56 @@ int process(char *ins,int k)
 {
 	int value=0;
 	static int value_array[27];
-	char instruction_type[6][10]={"SET","PRINT","ADD","SUB","MUL"};
+	char instruction_type[5][10]={"SET","PRINT","ADD","SUB","MUL"};
 
 	//SET
 	if(!strcmp(ins,instruction_type[0])) 
 	{
 		int second_space=input_split(&input_instruction,k);
 		char input_var=ins[0];
-		if(strlen(input_instruction)>7)
+		if(input_var>='A' && input_var<='Z')
 		{
-			int init=second_space+1,c=10;
-			while(init<strlen(input_instruction))
+			if(strlen(input_instruction)>7)
 			{
-				//printf("%c",input_instruction[init]);
-				value=(value*c)+(input_instruction[init]-'0');
-				init++;
+				int init=second_space+1,c=10;
+				while(init<strlen(input_instruction))
+				{
+					//printf("%c",input_instruction[init]);
+					value=(value*c)+(input_instruction[init]-'0');
+					init++;
+				}
 			}
+			else
+			{
+			
+				value=input_instruction[second_space+1]-'0';
+			}
+		value_array[(input_var-'0')%65]=value;
+		printf("%d",value_array[(input_var-'0')%65]);	
 		}
 		else
 		{
-		
-			value=input_instruction[second_space+1]-'0';
+			printf("INVALID INSTRUCTION FORMAT");
 		}
-		value_array[(input_var-'0')%65]=value;
-		printf("%d",value_array[(input_var-'0')%65]);
-
-			
+				
 	}
 	//PRINT
 	else if(!strcmp(ins,instruction_type[1]))
 	{
 		int second_space=input_split(&input_instruction,k);
 		char input_var=ins[0];
-		if(value_array[(input_var-'0')%65]!=0)
-			printf("%d",value_array[(input_var-'0')%65]);
+		if(input_var>='A' && input_var<='Z')
+		{
+			if(value_array[(input_var-'0')%65]!=0)
+				printf("%d",value_array[(input_var-'0')%65]);
+			else
+				printf("Variable %c not yet setted",input_var);	
+		}
 		else
-			printf("Variable %c not yet setted",input_var);
+		{
+			printf("INVALID INSTRUCTION FORMAT");
+		}
+		
 	}
 	//ADD
 	else if(!strcmp(ins,instruction_type[2]))
@@ -81,12 +95,13 @@ int process(char *ins,int k)
 			if(value_array[(first_var-'0')%65]!=0 && value_array[(second_var-'0')%65]!=0)
 			{
 				value_array[(first_var-'0')%65]=value_array[(first_var-'0')%65]+value_array[(second_var-'0')%65];
+				printf("%d",value_array[(first_var-'0')%65]);
 			}
 			else
 			{
 				printf("Cannot do this operation");
 			}
-			printf("%d",value_array[(first_var-'0')%65]);
+			
 		}
 		else if ((first_var>='A' && first_var<='Z') && (second_var>='0' && second_var<='9'))
 		{
@@ -107,12 +122,13 @@ int process(char *ins,int k)
 			if(value_array[(first_var-'0')%65]!=0)
 			{
 				value_array[(first_var-'0')%65]=value_array[(first_var-'0')%65]+value;
+				printf("%d",value_array[(first_var-'0')%65]);
+
 			}
 			else
 			{
 				printf("Cannot do this operation");
 			}
-			printf("%d",value_array[(first_var-'0')%65]);
 
 		}
 		else
@@ -130,12 +146,13 @@ int process(char *ins,int k)
 			if(value_array[(first_var-'0')%65]!=0 && value_array[(second_var-'0')%65]!=0)
 			{
 				value_array[(first_var-'0')%65]=value_array[(first_var-'0')%65]-value_array[(second_var-'0')%65];
+				printf("%d",value_array[(first_var-'0')%65]);
+
 			}
 			else
 			{
 				printf("Cannot do this operation");
 			}
-			printf("%d",value_array[(first_var-'0')%65]);
 		}
 		else if ((first_var>='A' && first_var<='Z') && (second_var>='0' && second_var<='9'))
 		{
@@ -156,19 +173,19 @@ int process(char *ins,int k)
 			if(value_array[(first_var-'0')%65]!=0)
 			{
 				value_array[(first_var-'0')%65]=value_array[(first_var-'0')%65]-value;
+				printf("%d",value_array[(first_var-'0')%65]);
 			}
 			else
 			{
 				printf("Cannot do this operation");
 			}
-			printf("%d",value_array[(first_var-'0')%65]);
 
 		}
 		else
 		{
 			printf("INVALID INSTRUCTION");	
 		
-	}
+		}
 	}
 	//MUL
 	else if(!strcmp(ins,instruction_type[4])){
@@ -180,12 +197,13 @@ int process(char *ins,int k)
 			if(value_array[(first_var-'0')%65]!=0 && value_array[(second_var-'0')%65]!=0)
 			{
 				value_array[(first_var-'0')%65]=value_array[(first_var-'0')%65]*value_array[(second_var-'0')%65];
+				printf("%d",value_array[(first_var-'0')%65]);
 			}
 			else
 			{
 				printf("Cannot do this operation");
 			}
-			printf("%d",value_array[(first_var-'0')%65]);
+			
 		}
 		else if ((first_var>='A' && first_var<='Z') && (second_var>='0' && second_var<='9'))
 		{
@@ -206,13 +224,12 @@ int process(char *ins,int k)
 			if(value_array[(first_var-'0')%65]!=0)
 			{
 				value_array[(first_var-'0')%65]=value_array[(first_var-'0')%65]*value;
+				printf("%d",value_array[(first_var-'0')%65]);
 			}
 			else
 			{
 				printf("Cannot do this operation");
 			}
-			printf("%d",value_array[(first_var-'0')%65]);
-
 		}
 		else
 		{
